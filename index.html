@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Freelance MVP Creator | Launch fast for RM100</title>
+  <title>MVP100 | Build your first MVP for RM100</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
@@ -11,11 +11,13 @@
 <body>
   <header class="site-header">
     <nav class="nav container">
-      <a href="index.html" class="logo">MVP<span>Studio</span></a>
+      <a href="index.html" class="logo">MVP<span>100</span></a>
       <div class="nav-links">
-        <a href="#features">Why MVP</a>
+        <a href="#features">Why MVP100</a>
+        <a href="#addons">Add-ons</a>
         <a href="#process">Process</a>
         <a href="#pricing">Pricing</a>
+        <a href="#calculator">Cost bot</a>
         <a href="samples.html">Sample MVPs</a>
         <a class="btn btn-secondary" href="mailto:hello@mvpstudio.dev?subject=MVP%20Creator%20Project">Let's talk</a>
       </div>
@@ -26,11 +28,11 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Freelance MVP Creator</p>
-          <h1>Launch the first version of your idea in days, from RM100.</h1>
+          <p class="eyebrow">Freelance build studio</p>
+          <h1>MVP100: create your first MVP for only RM100.</h1>
           <p class="lead">
-            I build lean MVPs for founders, creators, and small teams so you can
-            validate your market fast and keep hosting costs close to zero.
+            MVP100 is a small service for founders who want the leanest version
+            of their idea—landing page, clear CTA, and a simple automation like WhatsApp, email, or a mini Python script—without hiring an agency.
           </p>
           <div class="cta-group">
             <a class="btn btn-primary" href="mailto:hello@mvpstudio.dev?subject=Build%20my%20MVP">Start a project</a>
@@ -52,13 +54,13 @@
           </div>
         </div>
         <div class="hero-panel">
-          <p class="panel-title">What's included</p>
+          <p class="panel-title">RM100 base scope</p>
           <ul>
-            <li>Rapid UX wireframes</li>
-            <li>No-code / low-code build</li>
-            <li>Mobile-ready responsive design</li>
-            <li>Free hosting & handover</li>
-            <li>1 week of launch support</li>
+            <li>Single-page landing with copy + layout</li>
+            <li>Simple CTA: WhatsApp, email, Typeform, or notion doc</li>
+            <li>Optional lite script (e.g. Python crawl, Zapier hook)</li>
+            <li>Responsive build + analytics setup</li>
+            <li>Free hosting deployment + handover</li>
           </ul>
           <div class="panel-price">
             <span>From</span>
@@ -71,7 +73,7 @@
 
     <section id="features" class="section">
       <div class="container">
-        <p class="eyebrow center">Why MVPStudio</p>
+        <p class="eyebrow center">Why MVP100</p>
         <h2>Small experiments beat big launches.</h2>
         <div class="card-grid">
           <article class="card">
@@ -127,6 +129,34 @@
       </div>
     </section>
 
+    <section class="section tinted" id="addons">
+      <div class="container">
+        <p class="eyebrow center">Base vs add-ons</p>
+        <h2>RM100 covers the essentials. Add features only when you need them.</h2>
+        <div class="add-on-grid">
+          <article class="add-on-card">
+            <h3>Included in RM100</h3>
+            <ul>
+              <li>One landing page (copy + responsive layout)</li>
+              <li>Simple CTA (WhatsApp, email, Calendly, Google Form)</li>
+              <li>Lite integration (Notion, Airtable, Sheets)</li>
+              <li>Basic automation (Zapier, Make, Python crawl)</li>
+            </ul>
+          </article>
+          <article class="add-on-card">
+            <h3>Popular add-ons</h3>
+            <ul>
+              <li>Auth (login/logout)</li>
+              <li>Database + CRUD dashboard</li>
+              <li>Payment + subscriptions</li>
+              <li>Custom API integrations</li>
+            </ul>
+            <p class="small-print">Each add-on has a clear quote so you can decide what to prioritize.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="split">
@@ -168,6 +198,58 @@
           <p class="price-detail">Pay 50% to start, 50% on delivery.</p>
           <a class="btn btn-primary full" href="mailto:hello@mvpstudio.dev?subject=Ready%20to%20build">Book my slot</a>
           <p class="small-print">Need a custom scope? Attach your notes and I'll send a quote within 24h.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator" class="section cost-bot">
+      <div class="container">
+        <div class="split">
+          <div>
+            <p class="eyebrow">Budget clarity</p>
+            <h2>MVP100 bot estimates your build before you DM me.</h2>
+            <p>
+              The bot pings a free Google Apps Script endpoint that does the math
+              for each add-on (login, database, payments, and integrations). Swap the endpoint with your own Sheet
+              or leave the default for a local-only estimate.
+            </p>
+            <p class="small-print">Base price starts at RM100. Add-ons stack on top so you always know what you're committing to.</p>
+          </div>
+          <div class="bot-card">
+            <div class="bot-header">
+              <div class="bot-status"></div>
+              <p>MVP100 Cost Bot</p>
+            </div>
+            <form id="bot-form">
+              <label>
+                Project scope
+                <select name="scope" required>
+                  <option value="landing">Landing / waitlist</option>
+                  <option value="prototype">Prototype or clickable demo</option>
+                  <option value="app">Application with backend</option>
+                </select>
+              </label>
+              <label>
+                Timeline
+                <select name="timeline" required>
+                  <option value="relaxed">7-10 days</option>
+                  <option value="standard">3-5 days</option>
+                  <option value="rush">48 hours</option>
+                </select>
+              </label>
+              <fieldset>
+                <legend>Extra features</legend>
+                <label><input type="checkbox" name="addons" value="auth"> Login/logout</label>
+                <label><input type="checkbox" name="addons" value="database"> Database / user data</label>
+                <label><input type="checkbox" name="addons" value="payments"> Payment or subscription</label>
+                <label><input type="checkbox" name="addons" value="api"> Custom API or automation</label>
+              </fieldset>
+              <button type="submit" class="btn btn-primary full">Ask the bot</button>
+            </form>
+            <div id="bot-response" class="bot-response">
+              🤖 Tell me what you need and I'll suggest a quote.
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -216,6 +298,10 @@
             <h3>Can you keep building after MVP?</h3>
             <p>Yes. I offer retainers for ongoing experiments or introductions to specialists when you need to scale.</p>
           </article>
+          <article>
+            <h3>Where is the bot hosted?</h3>
+            <p>The estimate bot talks to a free Google Apps Script endpoint, so you can keep costs at RM0. Swap in your own script ID whenever you deploy.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -238,7 +324,7 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <a href="index.html" class="logo">MVP<span>Studio</span></a>
+        <a href="index.html" class="logo">MVP<span>100</span></a>
         <p>Freelance MVP creator. Build smart, launch fast, learn faster.</p>
       </div>
       <div class="footer-links">
@@ -249,5 +335,6 @@
       <p class="footer-note">Built to live on any free hosting platform.</p>
     </div>
   </footer>
+  <script src="assets/bot.js" defer></script>
 </body>
 </html>
