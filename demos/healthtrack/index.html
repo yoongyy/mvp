@@ -3,48 +3,216 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HealthTrack Demo</title>
+  <title>HealthTrack Waitlist | MVP100 Demo</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: "Space Grotesk", Arial, sans-serif; margin: 0; background: #040510; color: #f9fbff; }
-    .wrap { width: min(900px, 92%); margin: 0 auto; padding: 2rem 0 3rem; }
-    header { padding: 2rem 0; }
-    h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 0.5rem; }
-    .card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 1.5rem; margin-bottom: 1.5rem; }
-    label { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
-    button { background: linear-gradient(135deg,#6f7bf7,#56e1c9); border: none; color: #040510; border-radius: 999px; padding: 0.75rem 1.5rem; font-weight: 600; cursor: pointer; }
-    .result { margin-top: 1rem; padding: 1rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.15); }
-    .cta { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1rem; }
-    a.btn { text-decoration: none; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 1.25rem; color: #f9fbff; }
+    :root {
+      --bg: #050711;
+      --panel: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.12);
+      --accent: #5ff2c6;
+      --muted: #a2a6cc;
+      --text: #f8fbff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, rgba(111, 123, 247, 0.25), transparent 60%), var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .wrap {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+      padding: 3rem 0 4rem;
+    }
+    header {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .hero-image {
+      border-radius: 36px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      margin-bottom: 0.5rem;
+      line-height: 1.1;
+    }
+    .eyebrow {
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .meta-card {
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      background: var(--panel);
+    }
+    .meta-card h3 {
+      margin: 0.25rem 0;
+      font-size: 1.4rem;
+    }
+    .split {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .panel {
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      padding: 1.75rem;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+    }
+    button {
+      background: linear-gradient(135deg, #68f3ff, #5ff2c6);
+      border: none;
+      border-radius: 999px;
+      padding: 0.8rem 1.8rem;
+      font-weight: 600;
+      color: #041016;
+      cursor: pointer;
+      margin-top: 1rem;
+      box-shadow: 0 15px 35px rgba(95, 242, 198, 0.3);
+    }
+    .result {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 18px;
+      border: 1px dashed var(--border);
+      color: var(--muted);
+      min-height: 80px;
+    }
+    .cta-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .cta-area a {
+      text-decoration: none;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 0.85rem 1.6rem;
+      color: var(--text);
+      font-weight: 600;
+      display: inline-flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+    .cta-area a.primary {
+      background: rgba(95, 242, 198, 0.15);
+      border-color: rgba(95, 242, 198, 0.4);
+      color: var(--accent);
+    }
+    footer {
+      margin-top: 3rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 1.5rem;
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <p style="letter-spacing:0.2em;text-transform:uppercase;color:#56e1c9;font-weight:600;">1-hour build</p>
-      <h1>HealthTrack Waitlist Demo</h1>
-      <p>This is the exact landing + quiz that was produced during the 60-minute MVP100 session. Collect visitor context then hand off to Airtable.</p>
-    </header>
-    <section class="card">
-      <h2>Symptom snapshot</h2>
-      <p>Select what matches you most.</p>
-      <form id="quiz">
-        <label><input type="checkbox" name="symptom" value="2"> Brain fog</label>
-        <label><input type="checkbox" name="symptom" value="1"> Poor sleep</label>
-        <label><input type="checkbox" name="symptom" value="3"> Irregular glucose</label>
-        <label><input type="checkbox" name="symptom" value="2"> Stress spike</label>
-        <label><input type="checkbox" name="symptom" value="1"> Joint pain</label>
-        <button type="submit">See my plan</button>
-      </form>
-      <div id="quiz-result" class="result">Pick a few options to get an instant plan.</div>
-    </section>
-    <section class="card">
-      <h2>Instant WhatsApp CTA</h2>
-      <p>All quiz submissions drop into Airtable and this CTA opens WhatsApp with the score.</p>
-      <div class="cta">
-        <a class="btn" href="https://wa.me/60110000000?text=I%20want%20to%20join%20HealthTrack" target="_blank" rel="noreferrer">Message HealthTrack</a>
-        <a class="btn" href="index.html" download>Download HTML</a>
+      <div>
+        <p class="eyebrow">MVP100 · Real demo</p>
+        <h1>HealthTrack Waitlist</h1>
+        <p>Personalized health tracking waitlist built live within 52 minutes using Cursor + Codex. Quiz scores sync to Airtable for instant outreach.</p>
+        <div class="meta-grid">
+          <div class="meta-card">
+            <p class="eyebrow">One-hour scope</p>
+            <h3>52 minutes</h3>
+            <p>Landing + quiz + WhatsApp CTA.</p>
+          </div>
+          <div class="meta-card">
+            <p class="eyebrow">Add-on sprint</p>
+            <h3>3.5 hrs</h3>
+            <p>Airtable CRM + Make automations.</p>
+          </div>
+          <div class="meta-card">
+            <p class="eyebrow">Result</p>
+            <h3>41% opt-in</h3>
+            <p>287 subscribers first week.</p>
+          </div>
+        </div>
       </div>
-    </section>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80" alt="HealthTrack preview">
+      </div>
+    </header>
+
+    <div class="split">
+      <section class="panel">
+        <p class="eyebrow">Interactive quiz</p>
+        <h2>Symptom snapshot</h2>
+        <p>Select what matches you most, then get a suggested plan.</p>
+        <form id="quiz">
+          <label><input type="checkbox" name="symptom" value="2"> Brain fog & low focus</label>
+          <label><input type="checkbox" name="symptom" value="1"> Poor sleep quality</label>
+          <label><input type="checkbox" name="symptom" value="3"> Irregular glucose spikes</label>
+          <label><input type="checkbox" name="symptom" value="2"> Stress or cortisol spike</label>
+          <label><input type="checkbox" name="symptom" value="1"> Joint or muscle pain</label>
+          <button type="submit">See my plan</button>
+        </form>
+        <div id="quiz-result" class="result">Pick a few options to get an instant plan.</div>
+      </section>
+
+      <section class="panel">
+        <p class="eyebrow">Live waitlist CTA</p>
+        <h2>Collect leads + route to WhatsApp</h2>
+        <p>The quiz score pipes into Airtable, labels the lead tier, and triggers this WhatsApp CTA while alerting ops in Slack.</p>
+        <div class="cta-area">
+          <a class="primary" href="https://wa.me/60110000000?text=I%20want%20to%20join%20HealthTrack" target="_blank" rel="noreferrer">Message HealthTrack</a>
+          <a href="index.html" download>Download HTML</a>
+          <a href="../../healthtrack-waitlist.html" target="_blank" rel="noreferrer">Read case study</a>
+        </div>
+        <p class="eyebrow" style="margin-top:2rem;">CRM snapshot</p>
+        <p style="color:var(--muted);">Tier tags, last symptom, and WhatsApp transcript are logged automatically. No manual copy/paste.</p>
+      </section>
+    </div>
+
+    <footer>
+      <span>Made with MVP100 · Cursor + Codex in 52 minutes.</span>
+      <span>Need something similar? WhatsApp 011-5995 4190.</span>
+    </footer>
   </div>
   <script>
     const quiz = document.querySelector('#quiz');
@@ -58,9 +226,15 @@
       }
       const score = values.reduce((sum, val) => sum + val, 0);
       let tier = 'Low';
-      if (score >= 6) tier = 'High';
-      else if (score >= 3) tier = 'Medium';
-      result.innerHTML = `<strong>${tier} priority</strong> · We recommend a starter kit focused on sleep + recovery. An onboarding doc has been emailed to you.`;
+      let suggestion = 'Start with baseline sleep protocol and hydration streak.';
+      if (score >= 6) {
+        tier = 'High';
+        suggestion = 'Immediate physician consult + glucose monitoring kit is recommended.';
+      } else if (score >= 3) {
+        tier = 'Medium';
+        suggestion = 'Nutrition tweaks + stress tracking enters the 30-day sprint.';
+      }
+      result.innerHTML = `<strong>${tier} priority</strong> · ${suggestion}`;
     });
   </script>
 </body>
