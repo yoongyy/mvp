@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthTrack Demo</title>
+  <style>
+    body { font-family: "Space Grotesk", Arial, sans-serif; margin: 0; background: #040510; color: #f9fbff; }
+    .wrap { width: min(900px, 92%); margin: 0 auto; padding: 2rem 0 3rem; }
+    header { padding: 2rem 0; }
+    h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 0.5rem; }
+    .card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    label { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+    button { background: linear-gradient(135deg,#6f7bf7,#56e1c9); border: none; color: #040510; border-radius: 999px; padding: 0.75rem 1.5rem; font-weight: 600; cursor: pointer; }
+    .result { margin-top: 1rem; padding: 1rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.15); }
+    .cta { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+    a.btn { text-decoration: none; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2); padding: 0.75rem 1.25rem; color: #f9fbff; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p style="letter-spacing:0.2em;text-transform:uppercase;color:#56e1c9;font-weight:600;">1-hour build</p>
+      <h1>HealthTrack Waitlist Demo</h1>
+      <p>This is the exact landing + quiz that was produced during the 60-minute MVP100 session. Collect visitor context then hand off to Airtable.</p>
+    </header>
+    <section class="card">
+      <h2>Symptom snapshot</h2>
+      <p>Select what matches you most.</p>
+      <form id="quiz">
+        <label><input type="checkbox" name="symptom" value="2"> Brain fog</label>
+        <label><input type="checkbox" name="symptom" value="1"> Poor sleep</label>
+        <label><input type="checkbox" name="symptom" value="3"> Irregular glucose</label>
+        <label><input type="checkbox" name="symptom" value="2"> Stress spike</label>
+        <label><input type="checkbox" name="symptom" value="1"> Joint pain</label>
+        <button type="submit">See my plan</button>
+      </form>
+      <div id="quiz-result" class="result">Pick a few options to get an instant plan.</div>
+    </section>
+    <section class="card">
+      <h2>Instant WhatsApp CTA</h2>
+      <p>All quiz submissions drop into Airtable and this CTA opens WhatsApp with the score.</p>
+      <div class="cta">
+        <a class="btn" href="https://wa.me/60110000000?text=I%20want%20to%20join%20HealthTrack" target="_blank" rel="noreferrer">Message HealthTrack</a>
+        <a class="btn" href="index.html" download>Download HTML</a>
+      </div>
+    </section>
+  </div>
+  <script>
+    const quiz = document.querySelector('#quiz');
+    const result = document.querySelector('#quiz-result');
+    quiz.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const values = [...quiz.querySelectorAll('input[name="symptom"]:checked')].map((input) => Number(input.value));
+      if (!values.length) {
+        result.textContent = 'Select at least one symptom to get a plan.';
+        return;
+      }
+      const score = values.reduce((sum, val) => sum + val, 0);
+      let tier = 'Low';
+      if (score >= 6) tier = 'High';
+      else if (score >= 3) tier = 'Medium';
+      result.innerHTML = `<strong>${tier} priority</strong> · We recommend a starter kit focused on sleep + recovery. An onboarding doc has been emailed to you.`;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor Pulse Demo</title>
+  <style>
+    body { font-family: "Space Grotesk", Arial, sans-serif; margin: 0; background: #03040d; color: #f6f7ff; }
+    .wrap { width: min(1000px, 94%); margin: 0 auto; padding: 2rem 0 3rem; }
+    header { padding: 2rem 0; }
+    h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 0; }
+    table { width: 100%; border-collapse: collapse; border-spacing: 0; }
+    th, td { padding: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.08); text-align: left; }
+    th { text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem; color: #8d90b3; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+    select { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; color: #f6f7ff; padding: 0.4rem 0.6rem; }
+    .board { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 2rem 0; }
+    .card { border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 1rem; background: rgba(255,255,255,0.03); }
+    .meta { display: flex; gap: 0.5rem; font-size: 0.85rem; color: #9ba0c5; }
+    button { border-radius: 999px; border: none; padding: 0.6rem 1.4rem; background: linear-gradient(135deg,#6f7bf7,#56e1c9); font-weight: 600; color: #02030b; cursor: pointer; }
+    footer { margin-top: 2rem; font-size: 0.85rem; color: #8d90b3; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p style="letter-spacing:0.2em;text-transform:uppercase;color:#56e1c9;font-weight:600;">1-hour build</p>
+      <h1>Vendor Pulse Dashboard Shell</h1>
+      <p>This lightweight view lets ops update vendor progress and see health scores before the Supabase add-on is connected.</p>
+    </header>
+    <section class="card">
+      <h2>Vendor table</h2>
+      <table>
+        <thead>
+          <tr><th>Vendor</th><th>Owner</th><th>Status</th><th>Score</th></tr>
+        </thead>
+        <tbody id="vendor-body"></tbody>
+      </table>
+    </section>
+    <section class="board" id="board"></section>
+    <div class="card">
+      <h3>Need auth, exports, or automations?</h3>
+      <p>Those are add-ons layered after this 60-minute prototype. Drop me a note and we'll scope it.</p>
+      <button onclick="alert('Let\'s chat on WhatsApp: 011-5995 4190');">Plan add-ons</button>
+      <a href="index.html" download style="margin-left:1rem;color:#56e1c9;">Download HTML</a>
+    </div>
+    <footer>Data is stored in the browser only for demo purposes.</footer>
+  </div>
+  <script>
+    const vendors = [
+      { name: 'Studio K', owner: 'Alya', status: 'In progress', score: 76 },
+      { name: 'Northship', owner: 'Ray', status: 'Pending review', score: 54 },
+      { name: 'Nova Ads', owner: 'Iman', status: 'Approved', score: 91 },
+      { name: 'Bright Hive', owner: 'Elani', status: 'Needs assets', score: 40 },
+    ];
+    const statuses = ['Pending review', 'Needs assets', 'In progress', 'Approved'];
+    const body = document.getElementById('vendor-body');
+    vendors.forEach((vendor, index) => {
+      const row = document.createElement('tr');
+      const statusSelect = document.createElement('select');
+      statuses.forEach((status) => {
+        const option = document.createElement('option');
+        option.value = status;
+        option.textContent = status;
+        if (status === vendor.status) option.selected = true;
+        statusSelect.appendChild(option);
+      });
+      statusSelect.addEventListener('change', () => {
+        vendors[index].status = statusSelect.value;
+        renderBoard();
+      });
+      row.innerHTML = `<td>${vendor.name}</td><td>${vendor.owner}</td><td></td><td>${vendor.score}</td>`;
+      row.children[2].appendChild(statusSelect);
+      body.appendChild(row);
+    });
+    const board = document.getElementById('board');
+    function renderBoard() {
+      board.innerHTML = '';
+      statuses.forEach((status) => {
+        const column = document.createElement('div');
+        column.className = 'card';
+        const columnTitle = document.createElement('h3');
+        columnTitle.textContent = status;
+        column.appendChild(columnTitle);
+        vendors.filter((vendor) => vendor.status === status).forEach((vendor) => {
+          const item = document.createElement('div');
+          item.className = 'meta';
+          item.textContent = `${vendor.name} · Score ${vendor.score}`;
+          column.appendChild(item);
+        });
+        board.appendChild(column);
+      });
+    }
+    renderBoard();
+  </script>
+</body>
+</html>

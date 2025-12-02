@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Brief Generator Demo</title>
+  <style>
+    body { font-family: "Space Grotesk", Arial, sans-serif; margin: 0; background: #020309; color: #f7f9ff; }
+    .wrap { width: min(960px, 94%); margin: 0 auto; padding: 2rem 0 3rem; }
+    header { padding: 2rem 0; }
+    h1 { margin-bottom: 0.5rem; font-size: clamp(2rem, 4.5vw, 3.2rem); }
+    form, .output { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    label { display: block; margin-bottom: 0.75rem; font-weight: 600; }
+    input, textarea, select { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; padding: 0.6rem 0.75rem; color: #f7f9ff; font-size: 1rem; }
+    textarea { min-height: 100px; }
+    button { border: none; border-radius: 999px; padding: 0.8rem 1.6rem; background: linear-gradient(135deg,#6f7bf7,#56e1c9); font-weight: 600; color: #040510; cursor: pointer; }
+    .cta { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .download { border: 1px dashed rgba(255,255,255,0.4); padding: 0.7rem 1.5rem; border-radius: 999px; text-decoration: none; color: #f7f9ff; }
+    pre { white-space: pre-wrap; word-break: break-word; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p style="letter-spacing:0.2em;text-transform:uppercase;color:#56e1c9;font-weight:600;">1-hour build</p>
+      <h1>Creator Brief Generator</h1>
+      <p>The original 48-minute automation: fill the form, auto-generate a brief you can copy to Notion.</p>
+    </header>
+    <form id="brief-form">
+      <label>Brand name<input required name="brand" placeholder="Acme Skin"></label>
+      <label>Budget (MYR)<input type="number" required name="budget" min="500" step="50" placeholder="2500"></label>
+      <label>Key message<textarea required name="message" placeholder="Glow in 14 days"></textarea></label>
+      <label>Preferred channels<select name="channels" required>
+        <option value="TikTok + IG Reels">TikTok + IG Reels</option>
+        <option value="YouTube + Shorts">YouTube + Shorts</option>
+        <option value="Podcasts + Clips">Podcasts + Clips</option>
+      </select></label>
+      <button type="submit">Generate brief</button>
+    </form>
+    <div class="output">
+      <h2>Brief preview</h2>
+      <pre id="brief-output">Fill the form to generate a shareable brief.</pre>
+      <div class="cta">
+        <button id="copy">Copy text</button>
+        <a class="download" id="download" href="#">Download .txt</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    const form = document.getElementById('brief-form');
+    const output = document.getElementById('brief-output');
+    const copyBtn = document.getElementById('copy');
+    const downloadLink = document.getElementById('download');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const brand = data.get('brand');
+      const budget = data.get('budget');
+      const message = data.get('message');
+      const channels = data.get('channels');
+      const template = `Client: ${brand}\nBudget: RM${budget}\nChannels: ${channels}\n\nKey Message:\n${message}\n\nDeliverables:\n- 2 hero videos\n- 3 cutdowns optimized for paid\n- Behind-the-scenes teaser\n\nCall-to-Action:\nDrive traffic to waitlist.mvp100.dev/${brand.toLowerCase().replace(/\s+/g,'-')}`;
+      output.textContent = template;
+      const blob = new Blob([template], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      downloadLink.href = url;
+      downloadLink.download = `${brand.replace(/\s+/g,'-').toLowerCase()}-brief.txt`;
+    });
+
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(output.textContent).then(() => {
+        copyBtn.textContent = 'Copied';
+        setTimeout(() => (copyBtn.textContent = 'Copy text'), 1500);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -349,6 +349,21 @@ a {
   gap: 1rem;
 }
 
+.case-demo {
+  margin-top: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(4, 5, 16, 0.9);
+}
+
+.case-demo iframe {
+  width: 100%;
+  min-height: 420px;
+  border: 0;
+  background: #03040d;
+}
+
 .meta-card {
   border-radius: 18px;
   border: 1px solid var(--border);
